@@ -1,0 +1,43 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@600&display=swap');
+
+.wb{
+  background-color: white;
+  color: #222;
+  border-radius: 2%;
+  padding: 1%;
+}
+body {
+  background: linear-gradient(to bottom, #f5d90b, #16ab74);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  
+}
+main{
+  min-height: 70vh;
+}
+
+.banner-P{
+  height: '400px';
+  width: '1200px';
+  align-items: center;
+}
+.items {
+  margin: 1% 0.5%;
+  text-decoration:none;
+}
+.no-a{
+  text-decoration:none;
+}
+.banner-background{
+  display: flex;
+}
+
+.Pbanner-item{
+  width: 1200px;
+  height: 400px;
+}
+.wb2{
+  margin: 1%;
+}
