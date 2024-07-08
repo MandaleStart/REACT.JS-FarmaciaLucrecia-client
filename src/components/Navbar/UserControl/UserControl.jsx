@@ -1,6 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom';
-import CartWidget from './CartWidget/CartWidget';
-import FavoriteWidget from './FavoriteWidget/FavoriteWidget';
 import { FaDoorOpen } from 'react-icons/fa/index.esm';
 import { closeSession, userID } from '../../../utils/session';
 
@@ -27,8 +25,6 @@ const UserControl = () => {
   } else {
     return (
       <>
-        <CartWidget />
-        <FavoriteWidget />
         <Link className='no-a' to='/usuario'>
           {userID}
         </Link>

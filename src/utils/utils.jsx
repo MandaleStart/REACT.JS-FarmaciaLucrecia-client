@@ -36,7 +36,7 @@ export const addToFav = ({ id }) => {
 export const addToCart = ({ id }) => {
   if (user == null || user == 'unlogged') { alert('Debe iniciar sesion para agregar al carrito') } else { addToDoc("cart", id) }
 };
-{/*
+/*
 export const ItemsCount = (collection) => {
   const [itemsCount, setItemsCount] = useState(0);
   useEffect(() => {
@@ -57,4 +57,4 @@ export const ItemsCount = (collection) => {
     } else { setItemsCount(0); }
   }, [collection]);
   return itemsCount;
-};*/}
+};*/
