@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { db } from '../../firedb';
-import { auth } from '../../fireAuth';
+import { db } from '@utils/firedb';
+import { auth } from '@utils/fireAuth';
 const SigninPage = () => {
   const [usuario, setUsuario] = useState('');
   const [contrasena, setContrasena] = useState('');

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import Item from './item/item'
-import { db } from '../../../../../firedb';
+import Item from '../item/item'
+import { db } from '@utils/firedb';
 // eslint-disable-next-line react/prop-types
+
 const ItemListContainer = ({ categoria /*filtro=, stock ,price ,brands*/ }) => {
   const [productos, setProductos] = useState([]);
 

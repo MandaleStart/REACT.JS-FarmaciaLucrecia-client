@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-
-import { db } from '../../firedb';
+import { db } from '@utils/firedb';
 
 function UserPage() {
     const [user, setUser] = useState(null);

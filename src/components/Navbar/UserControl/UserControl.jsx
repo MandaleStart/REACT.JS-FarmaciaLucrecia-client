@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { FaDoorOpen } from 'react-icons/fa/index.esm';
-import { closeSession, userID } from '../../../utils/session';
+import { closeSession, userID } from '@utils/session';
 
 
 const UserControl = () => {

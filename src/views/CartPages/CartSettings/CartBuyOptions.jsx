@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { db } from '../../../../firedb';
+import { db } from '@utils/firedb';
 
 const user = localStorage.getItem('user')
 

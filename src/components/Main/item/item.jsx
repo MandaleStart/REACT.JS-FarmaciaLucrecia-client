@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { FaPlus, FaCartPlus} from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { addToCart,addToFav } from '../../../../../utils/utils';
+import { addToCart, addToFav } from '@utils/utils';
 
 const Item = ({ producto }) => {
 

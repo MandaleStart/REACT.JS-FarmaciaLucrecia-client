@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { auth } from '../../fireAuth';
+import { auth } from './fireAuth';
 import { signOut } from "firebase/auth";
 
 export const userID = localStorage.getItem('user');

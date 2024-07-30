@@ -1,7 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
-/* eslint-disable no-unused-vars */
-import { db } from '../../firedb';
-import { useEffect, useState } from 'react';
+import { db } from './firedb';
+/*import { useEffect, useState } from 'react';*/
 
 const userID = localStorage.getItem('user');
 

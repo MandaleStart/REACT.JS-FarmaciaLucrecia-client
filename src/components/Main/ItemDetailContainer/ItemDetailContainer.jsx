@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { FaCartPlus, FaHeart } from 'react-icons/fa';
-import { db } from '../../../../../firedb';
-import { addToCart,addToFav } from '../../../../utils/utils'
+import { db } from '@utils/firebase';
+import { addToCart,addToFav } from '@utils/utils'
 
 const ItemDetailContainer = () => {
   const [producto, setProducto] = useState(null);

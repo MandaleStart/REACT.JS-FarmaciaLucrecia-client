@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
-import { resetPassword, loginSession } from '../utils/session'
+import { resetPassword, loginSession } from '@utils/session'
 import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
