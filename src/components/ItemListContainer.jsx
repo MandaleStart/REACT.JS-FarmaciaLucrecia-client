@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Item from '../item/item'
+import Item from './item'
 import { db } from '@utils/firedb';
 // eslint-disable-next-line react/prop-types
 

@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
-import Sidebar from '../Sidebar/Sidebar';
-import ItemListContainer from '../ItemListContainer/ItemListContainer';
+import Sidebar from './Main/Sidebar/Sidebar';
+import ItemListContainer from './ItemListContainer';
 // eslint-disable-next-line react/prop-types
 const CatContainer = () => {
     const { id } = useParams();

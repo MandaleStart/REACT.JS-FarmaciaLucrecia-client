@@ -1,5 +1,5 @@
-import PBanner from '../components/Main/Banner/PBanner'
-import ItemListContainer from '../components/Main/ItemListContainer/ItemListContainer';
+import PBanner from '@components/Main/Banner/PBanner'
+import ItemListContainer from '@components/ItemListContainer';
 const Index = () => {
     return (
     <main className='container'>

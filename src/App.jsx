@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Navbar from './components/Navbar/NavBar';
+import Navbar from '@components/Navbar/NavBar';
 import Contact from './views/ContactPage';
 import FavPage from './views/FavPage/FavPage';
 import CartPage from './views/CartPages/CartPage';
@@ -9,9 +9,9 @@ import SuccessPage from './views/SuccessPage';
 import ErrorPage from './views/ErrorPage';
 import SearchPage from './views/SearchPage';
 import Index from  './views/Index';
-import CatContainer from './components/Main/CatContainer/CatContainer';
-import ItemDetailContainer from './components/Main/ItemDetailContainer/ItemDetailContainer';
-import Footer from './components/Footer/Footer';
+import CatContainer from '@components/CatContainer';
+import ItemDetailContainer from '@components/ItemDetailContainer';
+import Footer from '@components/Footer/Footer';
 import LoginPage from './views/LoginPage';
 import SigninPage from './views/SigninPage';
 

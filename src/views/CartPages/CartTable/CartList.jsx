@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { db } from '../../../utils/firedb';
+import { db } from '@utils/firedb';
 
 // eslint-disable-next-line react/prop-types
 const CartList = ({ onShowSendOptions }) => {
