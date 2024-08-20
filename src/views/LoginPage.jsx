@@ -1,23 +1,25 @@
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
-import { resetPassword, loginSession } from '@utils/session'
 import { useNavigate } from 'react-router-dom';
+import { onResetPassword, onLoginSession, onSignin } from '@utils/session';
 
 const LoginPage = () => {
-  const navigate = useNavigate();
   const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const onLoginSession = () => {
-    loginSession(mail, password)
-    navigate('/');
+  const handleLogin = () => {
+    onLoginSession(mail, password, navigate);
   };
-  const onSignin = () => {
-    navigate('/registro')
-  }
-  const onResetPassword = () => {
-    resetPassword(mail)
+
+  const handleResetPassword = () => {
+    onResetPassword(mail);
   };
+
+  const handleSignin = () => {
+    onSignin(navigate);
+  };
+
   return (
     <main className="d-flex justify-content-center align-items-center vh-40">
       <div className="border wb p-4">
@@ -44,20 +46,23 @@ const LoginPage = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-      <div className="mx-4 mt-1">
-          <button type="button" className="btn btn-success btn-block w-100" onClick={onLoginSession}>
+        <div className="mx-4 mt-1">
+          <button type="button" className="btn btn-success btn-block w-100" onClick={handleLogin}>
             Iniciar Sesión
           </button>
-      </div>
-      <div className="mx-4 mt-1">
-          <button type="button" className="btn btn-warning btn-block w-100" onClick={onResetPassword} >
+        </div>
+        <div className="mx-4 mt-1">
+          <button type="button" className="btn btn-warning btn-block w-100" onClick={handleResetPassword}>
             Olvidé mi contraseña
           </button>
+        </div>
+        <div className="mx-4 mt-1">
+          <button type="button" className="btn btn-primary btn-block" onClick={handleSignin}>
+            ¿No tienes cuenta? Regístrate
+          </button>
+        </div>
       </div>
-      <div className="mx-4 mt-1">
-          <button type="button" className="btn btn-primary btn-block " onClick={onSignin} >No tienes cuenta? Registrate</button></div>
-      </div>
-    </main >
+    </main>
   );
 };
 

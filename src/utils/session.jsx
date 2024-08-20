@@ -3,11 +3,14 @@ import { auth } from './fireAuth';
 import { signOut } from "firebase/auth";
 
 export const userID = localStorage.getItem('user');
-if (userID == null) {localStorage.setItem('user', 'unlogged');}
+if (userID == null) {
+  localStorage.setItem('user', 'unlogged');
+}
+export const userIDN = {}
+
 export const resetPassword = (mail) => {
-  const emailAddress = mail;
   auth
-    .sendPasswordResetEmail(emailAddress)
+    .sendPasswordResetEmail(mail)
     .then(() => {
       alert('Se ha enviado un correo electrónico para restablecer la contraseña.');
     })
@@ -16,24 +19,43 @@ export const resetPassword = (mail) => {
     });
 };
 
-export const loginSession = (mail, password) => {
-  auth
-    .signInWithEmailAndPassword(mail, password)
-    .then((userCredential) => {
-      const uID = userCredential.user.uid;
-      localStorage.setItem('user', uID);
-    })
-    .catch((error) => {
-      alert('Error al iniciar sesión. Verifica el correo y la contraseña.');
-    });
+export const loginSession = async (mail, password) => {
+  try {
+    const userCredential = await auth.signInWithEmailAndPassword(mail, password);
+    const uID = userCredential.user.uid;
+    localStorage.setItem('user', uID);
+  } catch (error) {
+    console.error('Error en Firebase:', error);
+    alert('Error al iniciar sesión. Verifica el correo y la contraseña.');
+    throw error;  
+  }
 };
 
 export const closeSession = () => {
-  signOut(auth).then(() => {
-    console.log('Sign-out successful.')
-  }).catch((error) => {
-    console.log('An error happened')
-
-  });
+  signOut(auth)
+    .then(() => {
+      console.log('Sign-out successful.');
+    })
+    .catch((error) => {
+      console.error('An error happened:', error);
+    });
   localStorage.removeItem('user');
 };
+
+export const onLoginSession = async (mail, password, navigate) => {
+  try {
+    await loginSession(mail, password); // Espera a que la sesión se inicie
+    navigate('/'); // Redirige solo si loginSession se completó correctamente
+  } catch (error) {
+    console.error('Error al iniciar sesión:', error); // Muestra cualquier error que ocurra
+  }
+};
+
+export const onSignin = (navigate) => {
+  navigate('/registro');
+};
+
+export const onResetPassword = (mail) => {
+  resetPassword(mail);
+};
+

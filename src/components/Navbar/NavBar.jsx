@@ -5,13 +5,20 @@ import Categories from './Categories/Categories';
 import UserControl from './UserControl/UserControl';
 import CartWidget from './CartWidget/CartWidget';
 import FavoriteWidget from './FavoriteWidget/FavoriteWidget';
+import { addToCart, addToFav } from '@utils/utils';
+
 
 const Navbar = () => {
-  const [cartItems, setCartItems] = useState([]);
-  const [favoriteItems, setFavoriteItems] = useState([]);
+  const [cartItemsCount, setCartItemsCount] = useState(0);
+  const [favoriteItemsCount, setFavoriteItemsCount] = useState(0);
 
-  const cartItemsCount = 10;
-  const favoriteItemsCount = 5;
+  const handleAddToCart = (id) => {
+    addToCart({ id }, setCartItemsCount);
+  };
+
+  const handleAddToFav = (id) => {
+    addToFav({ id }, setFavoriteItemsCount);
+  };
 
   return (
     <nav className="navbar navbar-light bg-light justify-content-between">
