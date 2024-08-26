@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db } from '@utils/firedb';
 import { getUserIDN } from '@utils/utils';
+import { FaPlus, FaMinus, FaTrash } from 'react-icons/fa';
+
+
 export const CartSendOptions = ({ onProceedToPay }) => {
     const [departamentos, setDepartamentos] = useState([]);
     const [selectedDepartamento, setSelectedDepartamento] = useState('');
@@ -269,31 +272,62 @@ export const CartBuyOptions = ({ cartListData, cartSendOptionsData }) => {
 };
 
 // Tabla para mostrar los productos en el carrito
-export const CartList = ({ items }) => {
+export const CartList = ({ items, onAdd, onRemove, onDelete }) => {
     return (
-
-        <div className="cart-list">
-            <h3>Productos en tu Carrito</h3>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th>Cantidad</th>
-                        <th>Precio</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {items.map((item, index) => (
-                        <tr key={index}>
-                            <td>{item.name}</td>
-                            <td>{item.cantidad}</td>
-                            <td>{item.cost}</td>
-                            <td>{item.cantidad * item.cost}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+      <div className="cart-list">
+        <h3>Productos en tu Carrito</h3>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>Precio</th>
+              <th>Total</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {items.map((item, index) => (
+              <tr key={index}>
+                <td>{item.name}</td>
+                <td>
+                  <div className="d-flex align-items-center">
+                    <button 
+                      className="btn btn-outline-secondary btn-sm"
+                      onClick={() => onRemove(item.id)}
+                      disabled={item.cant === 1} // Desactiva el botón si la cantidad es 1
+                    >
+                      <FaMinus />
+                    </button>
+                    <input 
+                      type="number" 
+                      className="form-control text-center mx-2" 
+                      value={item.cant} 
+                      readOnly 
+                      style={{ width: '50px' }} 
+                    />
+                    <button 
+                      className="btn btn-outline-secondary btn-sm"
+                      onClick={() => onAdd(item.id)}
+                    >
+                      <FaPlus />
+                    </button>
+                  </div>
+                </td>
+                <td>${item.cost}</td>
+                <td>${item.cant * item.cost}</td>
+                <td>
+                  <button 
+                    className="btn btn-danger btn-sm"
+                    onClick={() => onDelete(item.id)}
+                  >
+                    <FaTrash /> Eliminar
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     );
-};
+  };
