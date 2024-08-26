@@ -6,7 +6,7 @@ import { addToCart, addToFav } from '@utils/utils';
 
 const ItemDetailContainer = () => {
   const [producto, setProducto] = useState(null);
-  const [cantidad, setCantidad] = useState(1); // Estado para manejar la cantidad
+  const [cantidad, setCantidad] = useState(1); 
   const { id } = useParams();
 
   useEffect(() => {

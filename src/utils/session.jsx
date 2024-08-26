@@ -44,10 +44,10 @@ export const closeSession = () => {
 
 export const onLoginSession = async (mail, password, navigate) => {
   try {
-    await loginSession(mail, password); // Espera a que la sesión se inicie
-    navigate('/'); // Redirige solo si loginSession se completó correctamente
+    await loginSession(mail, password);
+    navigate('/'); 
   } catch (error) {
-    console.error('Error al iniciar sesión:', error); // Muestra cualquier error que ocurra
+    console.error('Error al iniciar sesión:', error);
   }
 };
 

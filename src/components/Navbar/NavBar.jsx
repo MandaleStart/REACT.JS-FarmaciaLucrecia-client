@@ -5,7 +5,7 @@ import Categories from './Categories/Categories';
 import UserControl from './UserControl/UserControl';
 import CartWidget from './CartWidget/CartWidget';
 import FavoriteWidget from './FavoriteWidget/FavoriteWidget';
-import { fetchCount , userID } from '@utils/utils'; // Asegúrate de exportar fetchCount desde utils
+import { fetchCount , userID } from '@utils/utils';
 
 const Navbar = () => {
   const [cartItemsCount, setCartItemsCount] = useState(0);
@@ -14,7 +14,7 @@ const Navbar = () => {
   useEffect(() => {
     const loadCounts = async () => {
       try {
-        const user = userID; // Asegúrate de tener el ID del usuario
+        const user = userID; 
         if (user) {
           const cartCount = await fetchCount(user, 'cart');
           const favCount = await fetchCount(user, 'fav');

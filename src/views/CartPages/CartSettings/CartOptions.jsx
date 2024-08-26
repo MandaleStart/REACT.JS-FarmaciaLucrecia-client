@@ -120,7 +120,7 @@ export const CartBuyOptions = ({ cartListData, cartSendOptionsData }) => {
 
     const finishedBuy = async () => {
         try {
-            const userId = await getUserIDN(); // Espera a que la promesa se resuelva
+            const userId = await getUserIDN(); 
     
             const ordenesRef = db.collection('ordenes');
             const snapshot = await ordenesRef.get();
@@ -135,7 +135,7 @@ export const CartBuyOptions = ({ cartListData, cartSendOptionsData }) => {
                 deliveryDate: '',
                 products: cartListData.products,
                 status: 'pendiente',
-                user: userId, // Utiliza el userId resuelto
+                user: userId, 
                 cost: cartListData.cost
             };
     

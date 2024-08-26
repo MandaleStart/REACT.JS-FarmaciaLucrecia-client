@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { addToCart, addToFav } from '@utils/utils';
 
 const Item = ({ producto }) => {
-  const [cantidad, setCantidad] = useState(1); // Estado para manejar la cantidad
+  const [cantidad, setCantidad] = useState(1); 
 
   const renderProducto = producto.image ?? "https://i.ibb.co/MpG69V7/nofoto.png";
 
@@ -32,28 +32,37 @@ const Item = ({ producto }) => {
       <div className="alert mb-0">
         $ {producto.cost}
       </div>
-      <div className="card-footer d-flex flex-column align-items-center">
-        <div className="d-flex align-items-center mb-2">
-          <button className="btn btn-outline-secondary btn-sm" onClick={decrementarCantidad}>
-            <FaMinus />
-          </button>
-          <input 
-            type="number" 
-            className="form-control text-center mx-2" 
-            value={cantidad} 
-            readOnly 
-            style={{ width: '50px' }} 
-          />
-          <button className="btn btn-outline-secondary btn-sm" onClick={incrementarCantidad}>
-            <FaPlus />
+      <div className="card-footer">
+        <div className="d-flex flex-column align-items-center">
+          {/* Control de cantidad */}
+          <div className="d-flex align-items-center mb-2">
+            <button className="btn btn-outline-secondary btn-sm" onClick={decrementarCantidad}>
+              <FaMinus />
+            </button>
+            <input 
+              type="number" 
+              className="form-control text-center mx-2" 
+              value={cantidad} 
+              readOnly 
+              style={{ width: '50px' }} 
+            />
+            <button className="btn btn-outline-secondary btn-sm" onClick={incrementarCantidad}>
+              <FaPlus />
+            </button>
+          </div>
+
+          {/* Botón de agregar al carrito */}
+          <button onClick={() => addToCart(producto, cantidad)} className="btn btn-success btn-block mb-2">
+            <FaCartPlus /> Comprar
           </button>
         </div>
-        <button onClick={() => addToCart(producto, cantidad)} className="btn btn-success btn-block mb-2">
-          <FaCartPlus /> Comprar
-        </button>
-        <button onClick={() => addToFav(producto)} className="btn btn-warning btn-block">
-          <FaPlusCircle /> Favoritos
-        </button>
+
+        {/* Botón de agregar a favoritos */}
+        <div className="d-flex justify-content-center">
+          <button onClick={() => addToFav(producto)} className="btn btn-warning">
+            <FaPlusCircle /> Favoritos
+          </button>
+        </div>
       </div>
     </div>
   );

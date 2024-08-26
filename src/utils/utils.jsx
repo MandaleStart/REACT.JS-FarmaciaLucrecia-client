@@ -14,7 +14,7 @@ export const addToDoc = (collection, id, callback) => {
         if (!collectionArray.includes(id)) {
           collectionArray.push(id);
           userDocRef.update({ [collection]: collectionArray }).then(() => {
-            if (callback) callback(collectionArray.length); // Actualiza el contador
+            if (callback) callback(collectionArray.length); 
           });
         }
       } else {
@@ -46,7 +46,7 @@ export const getUserIDN = async () => {
   const userID = localStorage.getItem('user');
   
   if (userID === null || userID === 'unlogged') {
-    return null;  // Retorna null si el usuario no está logueado
+    return null;  
   }
 
   try {
@@ -55,7 +55,7 @@ export const getUserIDN = async () => {
 
     if (doc.exists) {
       const data = doc.data();
-      return data.username || null;  // Retorna el username si existe
+      return data.username || null;  
     } else {
       console.log('El documento no existe.');
       return null;
@@ -93,7 +93,7 @@ export const updateProductQuantity = (collection, id, incrementBy = 1, callback)
         // Actualiza el documento en la base de datos
         userDocRef.update({ [collection]: collectionArray })
           .then(() => {
-            if (callback) callback(collectionArray.length); // Llama al callback con la longitud del array actualizado
+            if (callback) callback(collectionArray.length); 
           });
       } else {
         console.log("El documento no existe.");

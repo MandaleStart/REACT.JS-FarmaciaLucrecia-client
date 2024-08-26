@@ -49,7 +49,7 @@ const ContactPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // Submit the form using Formspree or any other method you prefer
+      
       console.log(formData);
     }
   };
