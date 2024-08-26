@@ -26,7 +26,7 @@ export const addToDoc = (collection, id, callback) => {
     });
 };
 
-export const addToFav = (product, updateFavoriteCount) => {
+export const addToFav = (product,updateFavoriteCount) => {
   if (userID === null || userID === 'unlogged') {
     alert('Debe iniciar sesión para agregar a Favoritos');
   } else {
@@ -34,11 +34,11 @@ export const addToFav = (product, updateFavoriteCount) => {
   }
 };
 
-export const addToCart = (product, updateCartCount) => {
+export const addToCart = (product, cant,updateCartCount) => {
   if (userID === null || userID === 'unlogged') {
     alert('Debe iniciar sesión para agregar al carrito');
   } else {
-    updateProductQuantity("cart", product.id, 1, updateCartCount);
+    updateProductQuantity("cart", product.id, cant, updateCartCount);
   }
 };
 
