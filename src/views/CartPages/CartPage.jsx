@@ -8,6 +8,7 @@ const CartPage = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [productos, setProductos] = useState([]);
+  const [sendOptions, setSendOptions] = useState(null);
 
   useEffect(() => {
     const loadItems = async () => {
@@ -15,10 +16,9 @@ const CartPage = () => {
         const user = userID;
         if (user) {
           const fetchedItems = await fetchCartData(user);
-          // Extrae 'id' y 'cantidad' desde los datos del carrito
           const itemDetails = fetchedItems.map(item => ({
-            id: item.id,  // ID del producto
-            cantidad: item.cant  // Cantidad del producto
+            id: item.id,
+            cantidad: item.cant
           }));
           setItems(itemDetails);
         } else {
@@ -31,7 +31,6 @@ const CartPage = () => {
       }
     };
 
- 
     loadItems();
   }, []);
 
@@ -40,9 +39,9 @@ const CartPage = () => {
       try {
         const snapshot = await db.collection('products').get();
         const listaProductos = snapshot.docs.map((doc) => ({
-          id: doc.data().id, // ID del producto en Firestore
-          name: doc.data().name, // Nombre del producto
-          cost: doc.data().cost // Costo del producto
+          id: doc.data().id,
+          name: doc.data().name,
+          cost: doc.data().cost
         }));
         setProductos(listaProductos);
       } catch (error) {
@@ -52,7 +51,6 @@ const CartPage = () => {
     loadProducts();
   }, []);
 
-  // Combinar los datos del carrito con los productos
   const combinedItems = items.map(item => {
     const product = productos.find(prod => prod.id === item.id);
     
@@ -71,7 +69,7 @@ const CartPage = () => {
       cost: 0
     };
   });
-  // Calcular el costo total
+
   const totalCost = combinedItems.reduce((acc, item) => {
     return acc + (item.cost || 0) * (item.cantidad || 0);
   }, 0);
@@ -83,15 +81,25 @@ const CartPage = () => {
   return (
     <main className="container row d-flex justify-content-between">
       <h1 className="mb-4">Tu Pedido</h1>
-      <div className='col-12 col-md-8 mb-4'>
+      
+      {/* Listado de productos */}
+      <div className='col-12 mb-4'>
         <CartList items={combinedItems} />
       </div>
-      <div className='col-12 col-md-4 mb-4'>
-        <CartSendOptions />
+
+      {/* Opciones de envío */}
+      <div className='col-12 mb-4'>
+        <CartSendOptions onProceedToPay={setSendOptions} />
       </div>
-      <div className='col-12 col-md-4'>
-        <CartBuyOptions />
-      </div>
+
+      {/* Opciones de pago */}
+      {sendOptions && (
+        <div className='col-12'>
+          <CartBuyOptions cartListData={{ products: combinedItems, cost: totalCost }} cartSendOptionsData={sendOptions} />
+        </div>
+      )}
+
+      {/* Costo total */}
       <div className='col-12'>
         <h3>Total: ${totalCost.toFixed(2)}</h3>
       </div>
