@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { db } from './firedb';
 
-const userID = localStorage.getItem('user');
+export const userID = localStorage.getItem('user');
 const userDocRef = db.collection('usuarios').doc(userID);
 
 export const addToDoc = (collection, id, callback) => {
@@ -108,24 +108,23 @@ export const fetchCartData = async (user) => {
   try {
     const usuarioRef = db.collection('usuarios').doc(user);
     const usuarioSnapshot = await usuarioRef.get();
-    const cartIds = usuarioSnapshot.get('cart');
-    const productosRef = db.collection('products');
-    const productosData = [];
 
-    for (const cartId of cartIds) {
-      const productoQuerySnapshot = await productosRef.where('id', '==', cartId).get();
-      const productoDoc = productoQuerySnapshot.docs[0];
-      if (productoDoc) {
-        productosData.push(productoDoc.data());
-      }
+    // Asegura que el campo 'cart' existe y es un array
+    const cartItems = usuarioSnapshot.get('cart') || [];
+
+    // Verifica si 'cartItems' es realmente un array
+    if (!Array.isArray(cartItems)) {
+      console.error('El campo cart no es un array.');
+      return [];
     }
-
-    return productosData;
+    return cartItems;
+    
   } catch (error) {
     console.error('Error al obtener los datos del carrito:', error);
-    throw error;
+    return [];
   }
 };
+
 
 export const updateCartQuantity = async (user, id, quantity) => {
   try {
@@ -140,7 +139,7 @@ export const updateCartQuantity = async (user, id, quantity) => {
         cartArray.push({ id, cant: quantity });
       }
       await userRef.update({ cart: cartArray });
-      console.log('Cantidad actualizada en el carrito.');
+
     } else {
       console.log('El documento del usuario no existe.');
     }
@@ -165,5 +164,35 @@ export const removeFromCart = async (user, id) => {
   } catch (error) {
     console.error('Error al eliminar el elemento del carrito:', error);
     throw error;
+  }
+};
+
+export const fetchCount = async (user, field) => {
+  try {
+    // Verifica que el campo sea 'cart' o 'fav'
+    if (!['cart', 'fav'].includes(field)) {
+      console.error('Campo inválido. Debe ser "cart" o "fav".');
+      return 0;
+    }
+
+    const usuarioRef = db.collection('usuarios').doc(user);
+    const usuarioSnapshot = await usuarioRef.get();
+
+    // Asegura que el campo especificado existe y es un array
+    const items = usuarioSnapshot.get(field) || [];
+
+    // Verifica si 'items' es realmente un array
+    if (!Array.isArray(items)) {
+      console.error(`El campo ${field} no es un array.`);
+      return 0;
+    }
+
+    // Cuenta el número total de productos
+    const count = items.length;
+    return count;
+
+  } catch (error) {
+    console.error('Error al obtener el conteo de productos:', error);
+    return 0;
   }
 };
