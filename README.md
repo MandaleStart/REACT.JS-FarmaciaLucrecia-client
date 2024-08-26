@@ -23,7 +23,7 @@ La aplicación de **Farmacia Lucrecia** ofrece una interfaz amigable y fácil de
 
 1. Clona el repositorio:
     ```bash
-    git clone https://github.com/mandalestart/farmacia-lucrecia.git
+    git clone https://github.com/MandaleStart/REACT-EntregaFinal-NicolasJorge
     ```
 2. Navega al directorio del proyecto:
     ```bash
