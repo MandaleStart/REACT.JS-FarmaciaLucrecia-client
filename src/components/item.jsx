@@ -2,7 +2,7 @@ import { FaPlus, FaCartPlus, FaMinus, FaPlusCircle } from 'react-icons/fa';
 import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { addToCart, addToFav } from '@utils/utils';
-import { CountContext } from '@utils/CountProvider';
+import { CountContext } from '@utils/CartContext';
 
 const Item = ({ producto }) => {
   const [cantidad, setCantidad] = useState(1); 

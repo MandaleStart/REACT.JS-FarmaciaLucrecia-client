@@ -6,7 +6,7 @@ import UserControl from './UserControl/UserControl';
 import CartWidget from './CartWidget/CartWidget';
 import FavoriteWidget from './FavoriteWidget/FavoriteWidget';
 import { fetchCount, userID } from '@utils/utils';
-import { CountContext } from '@utils/CountProvider'; 
+import { CountContext } from '@utils/CartContext'; 
 
 const Navbar = () => {
   const { cartItemsCount, setCartItemsCount, favoriteItemsCount, setFavoriteItemsCount } = useContext(CountContext);

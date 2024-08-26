@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { FaCartPlus, FaHeart, FaMinus, FaPlus } from 'react-icons/fa';
 import { db } from '@utils/firebase';
 import { addToCart, addToFav } from '@utils/utils';
-import { CountContext } from '@utils/CountProvider'; 
+import { CountContext } from '@utils/CartContext'; 
 
 const ItemDetailContainer = () => {
   const [producto, setProducto] = useState(null);

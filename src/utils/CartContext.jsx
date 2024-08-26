@@ -2,7 +2,7 @@ import React, { createContext, useState } from 'react';
 
 export const CountContext = createContext();
 
-const CountProvider = ({ children }) => {
+const CartContext = ({ children }) => {
   const [cartItemsCount, setCartItemsCount] = useState(0);
   const [favoriteItemsCount, setFavoriteItemsCount] = useState(0);
 
@@ -13,4 +13,4 @@ const CountProvider = ({ children }) => {
   );
 };
 
-export default CountProvider;
+export default CartContext;

@@ -3,7 +3,7 @@ import { CartSendOptions, CartBuyOptions, CartList } from './CartSettings/CartOp
 import { fetchCartData } from '@utils/utils';
 import { userID } from '@utils/session';
 import { db } from '@utils/firedb';
-import { CountContext } from '@utils/CountProvider'; // Importa el contexto
+import { CountContext } from '@utils/CartContext';
 
 const CartPage = () => {
   const [items, setItems] = useState([]);
