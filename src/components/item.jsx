@@ -1,24 +1,33 @@
-/* eslint-disable react/prop-types */
 import { FaPlus, FaCartPlus, FaMinus, FaPlusCircle } from 'react-icons/fa';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { addToCart, addToFav } from '@utils/utils';
+import { CountContext } from '@utils/CountProvider';
 
 const Item = ({ producto }) => {
   const [cantidad, setCantidad] = useState(1); 
+  const { setCartItemsCount, setFavoriteItemsCount } = useContext(CountContext);
 
   const renderProducto = producto.image ?? "https://i.ibb.co/MpG69V7/nofoto.png";
 
-  // Función para incrementar la cantidad
   const incrementarCantidad = () => {
     setCantidad(prevCantidad => prevCantidad + 1);
   };
 
-  // Función para decrementar la cantidad
   const decrementarCantidad = () => {
     if (cantidad > 1) {
       setCantidad(prevCantidad => prevCantidad - 1);
     }
+  };
+
+  const handleAddToCart = () => {
+    addToCart(producto, cantidad);
+    setCartItemsCount(prevCount => prevCount + cantidad); // Actualiza el contador de carrito
+  };
+
+  const handleAddToFav = () => {
+    addToFav(producto);
+    setFavoriteItemsCount(prevCount => prevCount + 1); // Actualiza el contador de favoritos
   };
 
   return (
@@ -34,7 +43,6 @@ const Item = ({ producto }) => {
       </div>
       <div className="card-footer">
         <div className="d-flex flex-column align-items-center">
-          {/* Control de cantidad */}
           <div className="d-flex align-items-center mb-2">
             <button className="btn btn-outline-secondary btn-sm" onClick={decrementarCantidad}>
               <FaMinus />
@@ -51,15 +59,13 @@ const Item = ({ producto }) => {
             </button>
           </div>
 
-          {/* Botón de agregar al carrito */}
-          <button onClick={() => addToCart(producto, cantidad)} className="btn btn-success btn-block mb-2">
+          <button onClick={handleAddToCart} className="btn btn-success btn-block mb-2">
             <FaCartPlus /> Comprar
           </button>
         </div>
 
-        {/* Botón de agregar a favoritos */}
         <div className="d-flex justify-content-center">
-          <button onClick={() => addToFav(producto)} className="btn btn-warning">
+          <button onClick={handleAddToFav} className="btn btn-warning">
             <FaPlusCircle /> Favoritos
           </button>
         </div>

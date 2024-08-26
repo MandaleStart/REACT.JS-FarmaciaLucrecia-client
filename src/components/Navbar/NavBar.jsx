@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Logo from './Logo/Logo';
 import './navbar.css';
 import Categories from './Categories/Categories';
 import UserControl from './UserControl/UserControl';
 import CartWidget from './CartWidget/CartWidget';
 import FavoriteWidget from './FavoriteWidget/FavoriteWidget';
-import { fetchCount , userID } from '@utils/utils';
+import { fetchCount, userID } from '@utils/utils';
+import { CountContext } from '@utils/CountProvider'; 
 
 const Navbar = () => {
-  const [cartItemsCount, setCartItemsCount] = useState(0);
-  const [favoriteItemsCount, setFavoriteItemsCount] = useState(0);
+  const { cartItemsCount, setCartItemsCount, favoriteItemsCount, setFavoriteItemsCount } = useContext(CountContext);
 
   useEffect(() => {
     const loadCounts = async () => {
@@ -29,7 +29,7 @@ const Navbar = () => {
     };
 
     loadCounts();
-  }, []);
+  }, [setCartItemsCount, setFavoriteItemsCount]);
 
   return (
     <nav className="navbar navbar-light bg-light justify-content-between">

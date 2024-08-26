@@ -1,13 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { FaCartPlus, FaHeart, FaMinus, FaPlus } from 'react-icons/fa';
 import { db } from '@utils/firebase';
 import { addToCart, addToFav } from '@utils/utils';
+import { CountContext } from '@utils/CountProvider'; 
 
 const ItemDetailContainer = () => {
   const [producto, setProducto] = useState(null);
   const [cantidad, setCantidad] = useState(1); 
   const { id } = useParams();
+  
+  // Acceder a los métodos del contexto
+  const { setCartItemsCount, setFavoriteItemsCount } = useContext(CountContext);
 
   useEffect(() => {
     const fetchProducto = async () => {
@@ -27,16 +31,24 @@ const ItemDetailContainer = () => {
 
   const renderProducto = producto.image ?? 'https://i.ibb.co/MpG69V7/nofoto.png';
 
-  // Función para incrementar la cantidad
   const incrementarCantidad = () => {
     setCantidad(prevCantidad => prevCantidad + 1);
   };
 
-  // Función para decrementar la cantidad
   const decrementarCantidad = () => {
     if (cantidad > 1) {
       setCantidad(prevCantidad => prevCantidad - 1);
     }
+  };
+
+  const handleAddToCart = () => {
+    addToCart(producto, cantidad);
+    setCartItemsCount(prevCount => prevCount + cantidad); // Actualiza el contador de carrito
+  };
+
+  const handleAddToFav = () => {
+    addToFav(producto);
+    setFavoriteItemsCount(prevCount => prevCount + 1); // Actualiza el contador de favoritos
   };
 
   return (
@@ -63,10 +75,10 @@ const ItemDetailContainer = () => {
             <FaPlus />
           </button>
         </div>
-        <button onClick={() => addToCart(producto, cantidad)} className="btn btn-success mb-2">
+        <button onClick={handleAddToCart} className="btn btn-success mb-2">
           <FaCartPlus /> Agregar al Carrito
         </button>
-        <button onClick={() => addToFav(producto)} className="btn btn-warning btn-block">
+        <button onClick={handleAddToFav} className="btn btn-warning btn-block">
           <FaHeart /> Agregar a Favoritos
         </button>
       </div>

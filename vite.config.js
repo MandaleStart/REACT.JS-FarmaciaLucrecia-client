@@ -13,6 +13,7 @@ export default defineConfig({
         { find: '@components', replacement: resolve(__dirname, 'src/components') },
         { find: '@fire', replacement: resolve(__dirname, 'src/fire') },
         
+        
       ],
     }),
   ],
