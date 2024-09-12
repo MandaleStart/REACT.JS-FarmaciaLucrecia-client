@@ -51,6 +51,8 @@ const ItemDetailContainer = () => {
     setFavoriteItemsCount(prevCount => prevCount + 1); // Actualiza el contador de favoritos
   };
 
+  const descripcionProducto = producto.desc ? producto.desc : 'Sin descripción del producto';
+  
   return (
     <main className="container row w-100 justify-content-center">
       <div className="wb col-5 col-order-1">
@@ -58,6 +60,7 @@ const ItemDetailContainer = () => {
       </div>
       <div className="wb col-5 col-order-2">
         <h1>{producto.name}</h1>
+        <p className="mb-3">{descripcionProducto}</p>
         <p className="mb-3">Stock: {producto.stock} disponibles</p>
         <p className="mb-3">${producto.cost}</p>
         <div className="d-flex align-items-center mb-3">
