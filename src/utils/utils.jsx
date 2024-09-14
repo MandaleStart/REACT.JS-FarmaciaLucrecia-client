@@ -2,7 +2,7 @@
 import { db } from './firedb';
 
 export const userID = localStorage.getItem('user');
-const userDocRef = db.collection('usuarios').doc(userID);
+export const userDocRef = db.collection('usuarios').doc(userID);
 
 export const addToDoc = (collection, id, callback) => {
   userDocRef
@@ -28,7 +28,7 @@ export const addToDoc = (collection, id, callback) => {
 
 export const addToFav = (product,updateFavoriteCount) => {
   if (userID === null || userID === 'unlogged') {
-    alert('Debe iniciar sesión para agregar a Favoritos');
+    swal('Debe iniciar sesión para agregar a Favoritos' , 'error');
   } else {
     updateProductQuantity("fav", product.id, 1, updateFavoriteCount);
   }
@@ -36,7 +36,7 @@ export const addToFav = (product,updateFavoriteCount) => {
 
 export const addToCart = (product, cant,updateCartCount) => {
   if (userID === null || userID === 'unlogged') {
-    alert('Debe iniciar sesión para agregar al carrito');
+    swal('Debe iniciar sesión para agregar al carrito', 'error');
   } else {
     updateProductQuantity("cart", product.id, cant, updateCartCount);
   }
@@ -197,9 +197,11 @@ export const fetchCount = async (user, field) => {
   }
 };
 
-export const clearCart = async (userId) => {
+export const clearCart = async (userID) => {
   try {
-    const userDocRef = db.collection('usuarios').doc(userId);
+    console.log(userID)
+    const userDocRef = db.collection('usuarios').doc(userID);
+    console.log(userDocRef)
     await userDocRef.update({ cart: [] }); // Vacía el carrito
   } catch (error) {
     console.error('Error al limpiar el carrito en Firebase:', error);

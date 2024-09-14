@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db } from '@utils/firedb';
-import { getUserIDN , clearCart} from '@utils/utils';
+import { getUserIDN , clearCart , userID } from '@utils/utils';
 import { FaPlus, FaMinus, FaTrash } from 'react-icons/fa';
 
 
@@ -58,11 +58,11 @@ export const CartSendOptions = ({ onProceedToPay }) => {
 
     const handleProceedToPay = () => {
         if (!selectedDepartamento) {
-            alert('Seleccione un departamento');
+            swal('Seleccione un departamento', 'error');
         } else if (!selectedCiudad) {
-            alert('Seleccione una ciudad');
+            swal('Seleccione una ciudad', 'error');
         } else if (!selectedAddress) {
-            alert('Complete la dirección');
+            swal('Complete la dirección', 'error');
         } else {
             onProceedToPay({
                 city: selectedCiudad,
@@ -143,11 +143,16 @@ export const CartBuyOptions = ({ cartListData, cartSendOptionsData }) => {
             };
     
             await ordenesRef.doc(String(nuevoId)).set(newOrder);
-            clearCart()
-            console.log('Nuevo pedido agregado con éxito!');
+            clearCart(userID)
+            swal('Nuevo pedido agregado con éxito!', 'error');
+
+            // Esperar 2 seg
+        setTimeout(() => {
             navigate('/compra-exitosa');
+        }, 2000); 
+
         } catch (error) {
-            console.error('Error al agregar el pedido:', error);
+            swal('Error al agregar el pedido:', 'error');
         }
     };
 
