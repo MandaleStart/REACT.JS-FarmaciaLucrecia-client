@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { db } from '@utils/firedb';
 import { auth } from '@utils/fireAuth';
+
 const SigninPage = () => {
   const [usuario, setUsuario] = useState('');
   const [contrasena, setContrasena] = useState('');
@@ -20,11 +21,10 @@ const SigninPage = () => {
     e.preventDefault();
 
     if (!usuario || !contrasena || !nombre || !email || !telefono) {
-      // Después pasar alertas a notificaciones
-      alert('Por favor, complete los campos requeridos.');
+      swal('Error', 'Por favor, complete los campos requeridos.', 'error');
       return;
     } else if (contrasena !== repetirContrasena) {
-      alert('Las contraseñas no coinciden.');
+      swal('Error', 'Las contraseñas no coinciden.', 'error');
       return;
     }
 
@@ -46,7 +46,10 @@ const SigninPage = () => {
         createdDate: setNewUserDate()
       });
 
-      // Reset formulario
+      // Mostrar alerta de éxito
+      swal('Registro exitoso', `El usuario ${usuario} ha sido registrado correctamente.`, 'success');
+
+      // Resetear el formulario
       setUsuario('');
       setContrasena('');
       setRepetirContrasena('');
@@ -57,6 +60,8 @@ const SigninPage = () => {
       setTelefono('');
     } catch (error) {
       console.error('Error al agregar el usuario:', error);
+      // Mostrar alerta de error
+      swal('Error en el registro', 'Hubo un problema: ' + error.message, 'error');
     }
   };
 

@@ -91,7 +91,7 @@ const CartPage = () => {
 
   const combinedItems = items.map(item => {
     const product = productos.find(prod => prod.id === item.id);
-    
+
     if (product) {
       return {
         id: item.id,
@@ -119,15 +119,19 @@ const CartPage = () => {
   return (
     <main className="container row d-flex justify-content-between">
       <h1 className="mb-4">Tu Pedido</h1>
-      
+
       {/* Listado de productos */}
       <div className='col-12 mb-4'>
-        <CartList 
-          items={combinedItems} 
-          onAdd={handleAdd} 
-          onRemove={handleRemove} 
-          onDelete={handleDelete} 
+        <CartList
+          items={combinedItems}
+          onAdd={handleAdd}
+          onRemove={handleRemove}
+          onDelete={handleDelete}
         />
+      </div>
+      {/* Costo total */}
+      <div className='col-12'>
+        <h3>Total: ${totalCost.toFixed(2)}</h3>
       </div>
 
       {/* Opciones de envío */}
@@ -142,10 +146,7 @@ const CartPage = () => {
         </div>
       )}
 
-      {/* Costo total */}
-      <div className='col-12'>
-        <h3>Total: ${totalCost.toFixed(2)}</h3>
-      </div>
+
     </main>
   );
 };

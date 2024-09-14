@@ -196,3 +196,12 @@ export const fetchCount = async (user, field) => {
     return 0;
   }
 };
+
+export const clearCart = async (userId) => {
+  try {
+    const userDocRef = db.collection('usuarios').doc(userId);
+    await userDocRef.update({ cart: [] }); // Vacía el carrito
+  } catch (error) {
+    console.error('Error al limpiar el carrito en Firebase:', error);
+  }
+};

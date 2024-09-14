@@ -19,6 +19,33 @@ La aplicación de **Farmacia Lucrecia** ofrece una interfaz amigable y fácil de
 - **Firebase**: Autenticación y base de datos en tiempo real para gestionar la información de los usuarios y los productos.
 - **CSS Modules**: Estilización de los componentes de manera aislada.
 
+## Dependencias
+
+Las siguientes dependencias son esenciales para el correcto funcionamiento de la aplicación:
+
+### Dependencias principales
+
+- **@rollup/plugin-alias**: `^5.1.0`
+- **bootstrap**: `^5.0.2`
+- **dotenv**: `^16.3.1`
+- **firebase**: `^10.0.0`
+- **react**: `^18.2.0`
+- **react-bootstrap**: `^2.0.0-beta.6`
+- **react-dom**: `^18.2.0`
+- **react-icons**: `^4.2.0`
+- **react-router-dom**: `^6.13.0`
+
+### Dependencias de desarrollo
+
+- **@types/react**: `^18.0.37`
+- **@types/react-dom**: `^18.0.11`
+- **@vitejs/plugin-react**: `^4.0.0`
+- **eslint**: `^8.38.0`
+- **eslint-plugin-react**: `^7.32.2`
+- **eslint-plugin-react-hooks**: `^4.6.0`
+- **eslint-plugin-react-refresh**: `^0.3.4`
+- **vite**: `^4.3.9`
+
 ## Instalación
 
 1. Clona el repositorio:

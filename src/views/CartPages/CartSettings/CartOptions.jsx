@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db } from '@utils/firedb';
-import { getUserIDN } from '@utils/utils';
+import { getUserIDN , clearCart} from '@utils/utils';
 import { FaPlus, FaMinus, FaTrash } from 'react-icons/fa';
 
 
@@ -143,6 +143,7 @@ export const CartBuyOptions = ({ cartListData, cartSendOptionsData }) => {
             };
     
             await ordenesRef.doc(String(nuevoId)).set(newOrder);
+            clearCart()
             console.log('Nuevo pedido agregado con éxito!');
             navigate('/compra-exitosa');
         } catch (error) {

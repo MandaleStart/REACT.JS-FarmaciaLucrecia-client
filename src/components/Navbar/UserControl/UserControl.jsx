@@ -6,6 +6,7 @@ import { getUserIDN } from '@utils/utils';
 
 const UserControl = () => {
   const [username, setUsername] = useState(null);
+  const [currentUserID, setCurrentUserID] = useState(userID);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,14 +16,37 @@ const UserControl = () => {
     };
 
     fetchUsername();
+
+    // Listener para el evento storage que detecta cambios en localStorage
+    const handleStorageChange = () => {
+      const updatedUserID = localStorage.getItem('user');
+      setCurrentUserID(updatedUserID);
+      fetchUsername();
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
+
+  useEffect(() => {
+    // Actualizar el estado del nombre de usuario si el userID cambia
+    const fetchUsername = async () => {
+      const user = await getUserIDN();
+      setUsername(user);
+    };
+
+    fetchUsername();
+  }, [currentUserID]);
 
   const onCloseSession = () => {
     closeSession();
     navigate('/iniciar-sesion');
   };
 
-  if (userID == null || userID === 'unlogged') {
+  if (currentUserID == null || currentUserID === 'unlogged') {
     return (
       <>
         <Link to='/iniciar-sesion' className='btn btn-success' type="button">

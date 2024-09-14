@@ -12,10 +12,11 @@ export const resetPassword = (mail) => {
   auth
     .sendPasswordResetEmail(mail)
     .then(() => {
-      alert('Se ha enviado un correo electrónico para restablecer la contraseña.');
+      
+      swal('Se ha enviado un correo electrónico para restablecer la contraseña.', 'Revisa tu casilla'+ mail , 'success');
     })
     .catch((error) => {
-      alert('Error al enviar el correo electrónico. Verifica la dirección de correo.');
+      swal('Error al enviar el correo electrónico. Verifica la dirección de correo', 'Hubo un problema: ' + error.message, 'error');
     });
 };
 
@@ -26,7 +27,7 @@ export const loginSession = async (mail, password) => {
     localStorage.setItem('user', uID);
   } catch (error) {
     console.error('Error en Firebase:', error);
-    alert('Error al iniciar sesión. Verifica el correo y la contraseña.');
+    swal('Error al iniciar sesión. Verifica el correo y la contraseña. ' , 'error');
     throw error;  
   }
 };
