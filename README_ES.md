@@ -62,7 +62,7 @@ Las siguientes dependencias son esenciales para el correcto funcionamiento de la
     ```
 4. Inicia la aplicación en modo desarrollo:
     ```bash
-    npm start
+    npm run dev
     ```
     La aplicación estará disponible en `http://localhost:3000`.
 
