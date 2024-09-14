@@ -25,8 +25,9 @@ export const loginSession = async (mail, password) => {
     const userCredential = await auth.signInWithEmailAndPassword(mail, password);
     const uID = userCredential.user.uid;
     localStorage.setItem('user', uID);
+    window.dispatchEvent(new Event('sessionUpdated')); 
   } catch (error) {
-    console.error('Error en Firebase:', error);
+    //console.error('Error en Firebase:', error);
     swal('Error al iniciar sesión. Verifica el correo y la contraseña. ' , 'error');
     throw error;  
   }
@@ -35,20 +36,21 @@ export const loginSession = async (mail, password) => {
 export const closeSession = () => {
   signOut(auth)
     .then(() => {
-      console.log('Sign-out successful.');
+      localStorage.removeItem('user');
+      // Notificar que la sesión ha cambiado
+      window.dispatchEvent(new Event('sessionUpdated'));
+      swal('Se ha cerrado la sesión.', 'Adiós', 'success');
     })
     .catch((error) => {
-      console.error('An error happened:', error);
+      swal('😢', 'Ocurrió un error', 'error');
     });
-  localStorage.removeItem('user');
 };
-
 export const onLoginSession = async (mail, password, navigate) => {
   try {
     await loginSession(mail, password);
     navigate('/'); 
   } catch (error) {
-    console.error('Error al iniciar sesión:', error);
+    swal('😢', 'Error al iniciar sesión:', 'error');
   }
 };
 

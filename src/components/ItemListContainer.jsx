@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import Item from './item'
+import Item from './item';
 import { db } from '@utils/firedb';
 // eslint-disable-next-line react/prop-types
 
-const ItemListContainer = ({ categoria /*filtro=, stock ,price ,brands*/ }) => {
+const ItemListContainer = ({ categoria }) => {
   const [productos, setProductos] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); 
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -14,10 +15,23 @@ const ItemListContainer = ({ categoria /*filtro=, stock ,price ,brands*/ }) => {
         setProductos(listaProductos);
       } catch (error) {
         console.error('Error al obtener los productos:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
     loadProducts();
   }, []);
+
+  // spinner 
+  if (isLoading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+        <div className="spinner-border text-primary" role="status">
+          <span className="sr-only">Cargando...</span>
+        </div>
+      </div>
+    );
+  }
 
   const filteredProductos = categoria
     ? categoria === "all"

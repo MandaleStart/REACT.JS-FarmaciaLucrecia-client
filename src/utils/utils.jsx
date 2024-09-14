@@ -18,11 +18,11 @@ export const addToDoc = (collection, id, callback) => {
           });
         }
       } else {
-        console.log("El documento no existe.");
+        //console.log("El documento no existe.");
       }
     })
     .catch((error) => {
-      console.error(`Error al actualizar el campo ${collection}:`, error);
+     // console.error(`Error al actualizar el campo ${collection}:`, error);
     });
 };
 
@@ -57,18 +57,18 @@ export const getUserIDN = async () => {
       const data = doc.data();
       return data.username || null;  
     } else {
-      console.log('El documento no existe.');
+     // console.log('El documento no existe.');
       return null;
     }
   } catch (error) {
-    console.error('Error al obtener el username:', error);
+   //console.error('Error al obtener el username:', error);
     return null;
   }
 };
 
 export const updateProductQuantity = (collection, id, incrementBy = 1, callback) => {
   if (!userDocRef) {
-    console.error('No se ha encontrado el usuario.');
+    //console.error('No se ha encontrado el usuario.');
     return;
   }
 
@@ -100,7 +100,7 @@ export const updateProductQuantity = (collection, id, incrementBy = 1, callback)
       }
     })
     .catch((error) => {
-      console.error(`Error al actualizar el campo ${collection}:`, error);
+    //  console.error(`Error al actualizar el campo ${collection}:`, error);
     });
 };
 
@@ -114,13 +114,13 @@ export const fetchCartData = async (user) => {
 
     // Verifica si 'cartItems' es realmente un array
     if (!Array.isArray(cartItems)) {
-      console.error('El campo cart no es un array.');
+     // console.error('El campo cart no es un array.');
       return [];
     }
     return cartItems;
     
   } catch (error) {
-    console.error('Error al obtener los datos del carrito:', error);
+   // console.error('Error al obtener los datos del carrito:', error);
     return [];
   }
 };
@@ -141,10 +141,10 @@ export const updateCartQuantity = async (user, id, quantity) => {
       await userRef.update({ cart: cartArray });
 
     } else {
-      console.log('El documento del usuario no existe.');
+   //   console.log('El documento del usuario no existe.');
     }
   } catch (error) {
-    console.error('Error al actualizar la cantidad en el carrito:', error);
+   // console.error('Error al actualizar la cantidad en el carrito:', error);
     throw error;
   }
 };
@@ -157,12 +157,12 @@ export const removeFromCart = async (user, id) => {
       const cartArray = doc.data().cart;
       const updatedCartArray = cartArray.filter(item => item.id !== id);
       await userRef.update({ cart: updatedCartArray });
-      console.log('Elemento eliminado del carrito.');
+    //  console.log('Elemento eliminado del carrito.');
     } else {
-      console.log('El documento del usuario no existe.');
+      //console.log('El documento del usuario no existe.');
     }
   } catch (error) {
-    console.error('Error al eliminar el elemento del carrito:', error);
+    //console.error('Error al eliminar el elemento del carrito:', error);
     throw error;
   }
 };
@@ -171,19 +171,17 @@ export const fetchCount = async (user, field) => {
   try {
     // Verifica que el campo sea 'cart' o 'fav'
     if (!['cart', 'fav'].includes(field)) {
-      console.error('Campo inválido. Debe ser "cart" o "fav".');
       return 0;
     }
 
     const usuarioRef = db.collection('usuarios').doc(user);
     const usuarioSnapshot = await usuarioRef.get();
 
-    // Asegura que el campo especificado existe y es un array
     const items = usuarioSnapshot.get(field) || [];
 
     // Verifica si 'items' es realmente un array
     if (!Array.isArray(items)) {
-      console.error(`El campo ${field} no es un array.`);
+      //console.error(`El campo ${field} no es un array.`);
       return 0;
     }
 
@@ -192,18 +190,18 @@ export const fetchCount = async (user, field) => {
     return count;
 
   } catch (error) {
-    console.error('Error al obtener el conteo de productos:', error);
+    //console.error('Error al obtener el conteo de productos:', error);
     return 0;
   }
 };
 
 export const clearCart = async (userID) => {
   try {
-    console.log(userID)
+    //console.log(userID)
     const userDocRef = db.collection('usuarios').doc(userID);
-    console.log(userDocRef)
+    //console.log(userDocRef)
     await userDocRef.update({ cart: [] }); // Vacía el carrito
   } catch (error) {
-    console.error('Error al limpiar el carrito en Firebase:', error);
+    //console.error('Error al limpiar el carrito en Firebase:', error);
   }
 };

@@ -24,10 +24,12 @@ const UserControl = () => {
       fetchUsername();
     };
 
-    window.addEventListener('storage', handleStorageChange);
+    // Escuchar cambios en el evento `sessionUpdated`
+    window.addEventListener('sessionUpdated', handleStorageChange);
 
     return () => {
       window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('sessionUpdated', handleStorageChange);
     };
   }, []);
 

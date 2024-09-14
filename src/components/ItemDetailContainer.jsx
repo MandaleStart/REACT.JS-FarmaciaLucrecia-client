@@ -8,6 +8,7 @@ import { CountContext } from '@utils/CartContext';
 const ItemDetailContainer = () => {
   const [producto, setProducto] = useState(null);
   const [cantidad, setCantidad] = useState(1); 
+  const [isLoading, setIsLoading] = useState(true); // Estado para controlar la carga
   const { id } = useParams();
   
   // Acceder a los métodos del contexto
@@ -15,18 +16,34 @@ const ItemDetailContainer = () => {
 
   useEffect(() => {
     const fetchProducto = async () => {
-      const productoRef = db.collection('products').where('id', '==', Number(id));
-      const productoSnapshot = await productoRef.get();
-      if (!productoSnapshot.empty) {
-        setProducto(productoSnapshot.docs[0].data());
+      try {
+        const productoRef = db.collection('products').where('id', '==', Number(id));
+        const productoSnapshot = await productoRef.get();
+        if (!productoSnapshot.empty) {
+          setProducto(productoSnapshot.docs[0].data());
+        }
+      } catch (error) {
+        console.error('Error al cargar el producto:', error);
+      } finally {
+        setIsLoading(false); // Finaliza la carga
       }
     };
 
     fetchProducto();
   }, [id]);
 
+  if (isLoading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+        <div className="spinner-border text-primary" role="status">
+          <span className="sr-only">Cargando...</span>
+        </div>
+      </div>
+    );
+  }
+
   if (!producto) {
-    return <div>Cargando...</div>;
+    return <div>No se encontró el producto.</div>;
   }
 
   const renderProducto = producto.image ?? 'https://i.ibb.co/MpG69V7/nofoto.png';
